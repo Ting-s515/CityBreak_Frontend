@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>購物車</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/bdc270b58a.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- 靜態資源載入 -->
+    <link rel="stylesheet" href="../static/general_icon.css">
+    <script src="../static/cart.js"></script>
+    <script src="../static/orderCheckout.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 商品區塊 */
+        .cart-item {
+            margin-bottom: 25px;
+        }
+
+        .cart-item img {
+            max-width: 100px;
+            max-height: auto;
+        }
+
+        /* 商品明細 */
+        .cart-item .item-details {
+            margin-left: 25px;
+        }
+
+        /* 移除商品 */
+        .cart-item .item-actions {
+            margin-left: auto;
+        }
+
+        .remove-item {
+            font-size: 20px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+
+        /* 禁用 i 元素上的指針事件，確保點擊事件傳遞到父元素 */
+        .remove-item i {
+            pointer-events: none;
+
+        }
+
+        /* 設定容器 */
+        .cart-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 50px;
+        }
+
+        #cart-total {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 100px;
+        }
+
+        #checkout-btn {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logo-container">
+        <div class="logo">
+            <a href="citybreak.html" class="text-decoration-none">
+                <div class="logo_content">
+                    <div class="city_break">CITYBREAK OUTDOOR</div>
+                    <p class="logo_text">戶外休閒用品店</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="container mt-5 cart-container">
+        <h1>購物車</h1>
+        <div id="cart-items">
+            <!-- 商品項目會動態插入 -->
+        </div>
+        <div id="cart-total" class="mt-3">
+            <h3>總價: NT$<span id="total-price">0</span></h3>
+            <button id="checkout-btn" class="btn btn-primary">確認結帳</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItemsHTML = document.getElementById('cart-items');
+            const totalPriceHTML = document.getElementById('total-price');
+
+            // 從 localStorage 獲取購物車數據
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            // 創建商品項目 HTML
+            function createCartItemHtml(item) {
+                return `
+            <div class="d-flex align-items-center cart-item">
+                <img src="${item.img}" alt="商品圖片">
+                <div class="item-details">
+                    <h5>${item.name}</h5>
+                    <p>價格: NT$${item.price}</p>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-secondary btn-sm decrease-quantity">-</button>
+                        <span class="mx-2">${item.quantity}</span>
+                        <button class="btn btn-secondary btn-sm increase-quantity">+</button>
+                    </div>
+                </div>
+                <div class="item-actions d-flex align-items-center">
+                     <button class="btn btn-danger btn-sm remove-item"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+            </div>
+        `;
+            }
+            // 更新頁面上的總價
+            //reduce((sum, item) => ())，array的方法
+            //sum：累積器，保存目前為止的累加結果，類似+=效果
+            //item：代表當前處理元素的參數名，可自訂
+            function updateTotalPrice() {
+                const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                totalPriceHTML.textContent = total;
+            }
+
+
+            // 刷新購物車項目
+            //cartItems：購物車項目的陣列，裡面存item屬性
+            //map是Array的方法。對陣列中的每一個元素進行操作，並返回一個新的陣列
+            //對cartItems陣列中的每個項目，調用createCartItemHtml函式 
+            //join('') 將這些HTML字串連接成一個完整的HTML字串，中間沒有任何分隔符
+            //cartItemsHTML購物車容器
+            function updateCartItems() {
+                cartItemsHTML.innerHTML = cartItems.map(createCartItemHtml).join('');
+                updateTotalPrice();
+            }
+
+            updateCartItems();
+
+            // 處理數量增加和減少
+            //classList類別清單
+            //contains用來檢查指定類別是否存在
+            //find 方法的工作原理是遍歷陣列，並對每個元素執行回調函數callback function
+            //closest找到最近的html元素有包含這個class
+            cartItemsHTML.addEventListener('click', (e) => {
+                if (e.target.classList.contains('increase-quantity') || e.target.classList.contains('decrease-quantity')) {
+                    const itemElement = e.target.closest('.cart-item');
+                    const itemName = itemElement.querySelector('h5').textContent;
+                    const item = cartItems.find(item => item.name === itemName);
+                    if (e.target.classList.contains('increase-quantity')) {
+                        item.quantity++;
+                    } else if (e.target.classList.contains('decrease-quantity') && item.quantity > 1) {
+                        item.quantity--;
+                    }
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                    updateCartItems();
+                }
+            });
+
+            // 處理刪除商品
+            //filter用來過濾用戶點擊的商品
+            //更新localstorage
+            cartItemsHTML.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-item')) {
+                    const itemElement = e.target.closest('.cart-item');
+                    const itemName = itemElement.querySelector('h5').textContent;
+                    cartItems = cartItems.filter(item => item.name !== itemName);
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                    updateCartItems();
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

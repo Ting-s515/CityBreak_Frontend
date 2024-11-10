@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>City Break</title>
+</head>
+
+<body>
+    <script>
+        //物件(關聯陣列)
+        const obj = {
+            name: "Alice",
+            age: 25
+        };
+        //-----------------------------------1
+        for (const key of Object.keys(obj)) {
+            console.log(key + ":" + obj[key]);
+        }
+        //obj[key]：這是動態訪問物件屬性的方式，key 是變數，它的值會用作屬性的名稱。
+        //obj.key：這是靜態訪問屬性的方式，它會查找名為 key 的屬性，無法動態地根據變數名來訪問屬性的。
+        //-----------------------------------2
+        console.log(JSON.stringify(obj, null, 1));
+        //JSON.stringify(value, replacer, spaace)
+        // value: 需要轉換為 JSON 字串的值（通常是物件或陣列）。
+        // replacer: 可選的參數，用於過濾或修改要包含在 JSON 字串中的屬性。如果為 null，則所有可序列化的屬性都會被包括。
+        // space: 可選的數字或字串，用於添加縮排、空格
+
+        //陣列
+        const arr = [1, 2, 3, 4, 5];
+        //------------------------------------1
+        arr.forEach(value => console.log(value));
+        //------------------------------------2
+        function printnum(value) { console.log(value) };
+        arr.forEach(printnum);
+        //------------------------------------3
+        for (let i = 0; i < arr.length; i++) {
+            console.log(arr[i]);
+        }
+        // for (let value of arr) {
+        //     console.log(value); // 這會列印出每個元素
+        // }
+    </script>
+</body>
+
+</html>
