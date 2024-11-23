@@ -18,7 +18,7 @@
  <li>API:</li>
  <ul>
    <li>綠界</li>
-   <li>google</li>
+   <li>google people</li>
  </ul>
 </ul>
 <h2>功能說明</h2>
