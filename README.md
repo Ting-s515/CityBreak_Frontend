@@ -7,7 +7,7 @@
     <li>JS</li>
     <li>Bootstrap</li>
   </ul> 
-<l1>後端:</l1>
+ <li>後端</li>
   <ul>
     <li>Flask</li>
   </ul>
