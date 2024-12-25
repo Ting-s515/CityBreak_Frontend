@@ -47,7 +47,7 @@
     <ul>
         <li>保持正規化設計，減少資料重複欄位</li>
         <li>透過建立FK與UQ，維持資料的完整性與唯一性，索引也幫助資料搜尋的效率</li>
-        <li>memberTable: 設計userID為DB的PK INENTITY，實際上網站會看到的是webMemberID，達到自訂會員編號格式的效果，
+        <li>memberTable: 設計userID為PK INENTITY(1,1)，實際上網站會看到的是webMemberID，達到自訂會員編號格式的效果，
             email、phone設定為UQ，避免資料有重複項，PWD則是經由hash加密，保障帳戶安全</li>
         <li>productTable: 有設計一個欄位專門為商品進行分類</li>   
         <li>product_classification: 外鍵參考到ProductTable，一對多關聯</li> 
