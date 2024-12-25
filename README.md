@@ -54,7 +54,7 @@
         <li>orderTable: orderStatus表示訂單付款狀態(未付款、已付款)，merchantTradeNo作為訂單編號</li>
         <li>order_details: 外鍵參考到productTable、orderTable，</li>
     </ul>
-    <img src="images/Citybreak_DB.png" alt="資料庫設計圖" style="max-width: 100%; height: auto;">
+    <img src="https://i.imgur.com/Q9d0C2n.png" alt="資料庫設計圖" style="max-width: 100%; height: auto;">
     <h2 id="function-description">功能說明 :</h2>
     <ul>
         <li>前後端分離：使用 .NET Core API 建立後端服務，前端使用 Vue.js 架構，達成低耦合的架構，便於日後的擴展和維護。</li>
