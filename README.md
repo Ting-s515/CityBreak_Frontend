@@ -17,11 +17,12 @@
     </ul>
     <h2 id="project-description">專案說明 : </h2>
     <li>為熱愛戶外活動的消費者提供便捷的電商平台，專注於優質裝備的銷售，滿足各種場景需求。</li>
+    <li>前端程式打包: <a href="https://hub.docker.com/repository/docker/tings515/hello/general">點我到docker</a></li>
     <h2 id="technology-application">技術應用 :</h2>
     <ul>
         <li>前端 :
             <ul>
-                <li>Vue.js: 使用 Vue Router 管理路徑，並採用 Mitt 管理全域事件</li>
+                <li>Vue.js: 使用 Vue Router 管理路徑，並採用 Pinia 管理全域事件</li>
                 <li>JS & jQuery</li>
                 <li>Bootstrap</li>
             </ul>
