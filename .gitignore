@@ -1,30 +1,65 @@
+# Node.js modules
+node_modules/
+
 # Logs
-logs
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
+# Build output
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Cache files
+.cache/
+.vite/
+
+# IDE/Editor specific files
+.vscode/
+.idea/
 .DS_Store
-dist
-dist-ssr
-coverage
+*.swp
+*.swo
+
+# System files
+Thumbs.db
+*.bak
+*.old
+
+# Environment files
+.env
+.env.*.local
+
+# npm package-lock / yarn.lock (Optional, if you don't want to share lock files)
+# package-lock.json
+# yarn.lock
+
+# Test and coverage files
+coverage/
+tests-results/
+junit-results.xml
+
+# Optional linting cache
+eslintcache
+stylelintcache
+
+# Vue-related files
 *.local
+public/static/assets/*
 
-/cypress/videos/
-/cypress/screenshots/
+# Generated files
+*.log
+*.map
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Ignore GitHub workflow temp files
+.github/workflows/*.log
 
-*.tsbuildinfo
+# Ignore API keys or secrets if used
+secrets/
+public
+*.png
+*.jpg
