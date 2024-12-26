@@ -18,6 +18,7 @@
     <h2 id="project-description">專案說明 : </h2>
     <li>為熱愛戶外活動的消費者提供便捷的電商平台，專注於優質裝備的銷售，滿足各種場景需求。</li>
     <li>前端程式打包: <a href="https://hub.docker.com/repository/docker/tings515/hello/general">點我到docker</a></li>
+    <li>前後端分離：使用 .NET Core API 建立後端服務，前端使用 Vue.js 架構，達成低耦合的架構，便於日後的擴展和維護。</li>
     <h2 id="technology-application">技術應用 :</h2>
     <ul>
         <li>前端 :
@@ -58,7 +59,6 @@
     <img src="https://i.imgur.com/Q9d0C2n.png" alt="資料庫設計圖" style="max-width: 100%; height: auto;">
     <h2 id="function-description">功能說明 :</h2>
     <ul>
-        <li>前後端分離：使用 .NET Core API 建立後端服務，前端使用 Vue.js 架構，達成低耦合的架構，便於日後的擴展和維護。</li>
         <li>響應式介面設計：利用 Bootstrap 實作RWD介面設計，提升使用者在不同設備上的瀏覽體驗。</li>
         <li>線上支付功能：串接綠界金融 API，確保支付流程的安全性，提供使用者便捷且安全的交易體驗。</li>
         <li>Google 快速登入：整合 Google OAuth 提供快速登入功能，簡化註冊流程，提升用戶體驗。</li>
