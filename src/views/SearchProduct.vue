@@ -2,7 +2,6 @@
     import LogoAndIcon from '@/components/LogoAndIcon.vue';
     import Nav from '@/components/Nav.vue';
     import CardProduct from '@/components/CardProduct.vue';
-    import { event } from '@/global';
     import { ref,onMounted,onUnmounted, watch, computed, watchEffect} from 'vue';
     import { useRouter } from 'vue-router';
     import { useSearchProducts } from '@/stores/products';

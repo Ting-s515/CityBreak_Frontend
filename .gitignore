@@ -63,3 +63,4 @@ secrets/
 public
 *.png
 *.jpg
+.gitattributes

@@ -11,6 +11,7 @@
         // 當地時間的 ISO 格式
         const localIsoTime=new Date(date.getTime()-timeZone).toISOString().slice(0,19).replace('T',' ');
         console.log(typeof localIsoTime, localIsoTime);
+        console.log(`${userName.value} ${userEmail.value} ${userID.value}`);
     }
 </script>
 <template> 
@@ -24,7 +25,7 @@
         <p class="me-3">id:<span class="text-danger">{{ userID }}</span> </p>
         <p class="me-3">建立時間: <span class="text-danger">{{createdDate}}</span></p>
     </div>
-    <!-- <button @click="getDate">取得時間</button> -->
+    <button @click="getDate">取得時間</button>
 </template>
 <style scoped>
     .product-hr{color: red;border-style: solid;border-width: 2px;}

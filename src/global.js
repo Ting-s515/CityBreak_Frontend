@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import mitt from 'mitt';
+
 export const apiUrl = 'https://localhost:7130';
 export const userName = ref(localStorage.getItem('userName') || ''); 
 export const userEmail=ref(localStorage.getItem('userEmail') || '');
@@ -20,5 +20,3 @@ export const formatDate=function(orderTime){
     };
     return new Date(orderTime).toLocaleString('zh-TW',options);
 };
-//Global Event Bus事件處理
-export const event=mitt();

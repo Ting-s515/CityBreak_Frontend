@@ -1,5 +1,5 @@
 <script setup>
-    import {event,apiUrl} from '@/global';
+    import {apiUrl} from '@/global';
     import { ref } from 'vue';
     import axios from 'axios';
     import { useRouter } from 'vue-router';

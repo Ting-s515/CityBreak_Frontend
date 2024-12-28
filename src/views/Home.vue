@@ -9,8 +9,9 @@
     import axios from 'axios';
     import { jwtDecode } from 'jwt-decode';
     import { useRouter } from 'vue-router';
-    import { userEmail, userID, userName,event,apiUrl } from '@/global';
+    import { userEmail, userID, userName,apiUrl } from '@/global';
     import { useProductClassification} from '@/stores/products';
+    import qs from 'qs';
     import DropDown from '@/components/DropDown.vue';
     const router=useRouter();
 
@@ -55,17 +56,22 @@
                 const decodeToken=jwtDecode(token); 
                 console.log(`userID: ${decodeToken.userID}`);
                 try{
-                    const response=await axios.post(`${apiUrl}/getGoogleUserInfo`,{
-                        userID:decodeToken.userID
+                    const response=await axios.post(`${apiUrl}/getGoogleUserInfo`,
+                    qs.stringify({userID: decodeToken.userID}), // 將資料轉換為 URL 編碼表單格式
+                    {
+                        headers:{
+                            'Content-Type': 'application/x-www-form-urlencoded', 
+                        },    
                     });
+                    // console.log("執行qs轉換");
                     if(response.data.success){
                         console.log(`${response.data.email} ${response.data.name}`);
                         localStorage.setItem('userName', response.data.name);
                         localStorage.setItem('userEmail',response.data.email);
                         localStorage.setItem('userID',response.data.userID);
                         userID.value=response.data.userID;
-                        userName.value=response.data.userName;
-                        userEmail.value=response.data.userEmail;
+                        userName.value=response.data.name;
+                        userEmail.value=response.data.email;
                         alert("登入成功!!");
                     }
                     else{
@@ -122,38 +128,11 @@
     const isLoading = computed(() => productClassification.isLoading);
 
     // 使用 watchEffect 簡化監控
-    watchEffect(() => {
-        console.log("productClassification in watchEffect:", productClassification.products);
-        console.log("productClassification in watchEffect:", productClassification.isLoading);
-    });
-    //預設值
-    // const fetchProducts = async (classification="clothes") => {
-    //     try {
-    //         // console.log("classification參數",classification);
-    //         const response = await axios.post(`${apiUrl}/getProducts`,{
-    //             classification }); 
-    //         if(response.data.success){
-    //             products.value = response.data.data; 
-    //             products.value.forEach(product=>{
-    //                 product.imagePath=`${product.imagePath}`;
-    //             });
-    //         }
-    //         else{
-    //             console.error('商品加載失敗：', response.data.message);
-    //         }
-    //     } catch (error) {
-    //         console.error('無法加載商品數據：', error.response);
-    //     }finally{
-    //         isLoading.value=false; //加載完成
-    //     }
-    // };
-    // const handlerClassification=(classification)=>{
-    //     fetchProducts(classification);
-    // }
-    // onMounted(()=>{
-    //     fetchProducts();
-    //     event.on('classification',handlerClassification);
+    // watchEffect(() => {
+    //     console.log("productClassification in watchEffect:", productClassification.products);
+    //     console.log("productClassification in watchEffect:", productClassification.isLoading);
     // });
+   
     
 </script>
 <template>
@@ -161,7 +140,7 @@
         <LogoAndIcon></LogoAndIcon>
         <Nav></Nav>
         <Carousel></Carousel>
-        <DropDown class="mt-3"/>
+        <!-- <DropDown class="mt-3"/> -->
         <ProductTip hr="最新商品"></ProductTip>
         <CardProduct :products="products" :isLoading="isLoading" @addToCart="addToCart"></CardProduct>
         <!-- 傳給cartStore.js -->
