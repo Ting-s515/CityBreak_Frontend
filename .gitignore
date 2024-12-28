@@ -60,7 +60,7 @@ public/static/assets/*
 
 # Ignore API keys or secrets if used
 secrets/
-public
+public/
 *.png
 *.jpg
 .gitattributes
