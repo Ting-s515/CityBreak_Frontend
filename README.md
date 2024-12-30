@@ -31,8 +31,7 @@
         </li>
         <li>後端 :
             <ul>
-                <li>ASP.NET API</li>
-                <li>JWT: 使用 JWT 驗證機制，確保使用者登入的安全性</li>
+                <li>.NET API</li>
             </ul>
         </li>
         <li>資料庫 :
