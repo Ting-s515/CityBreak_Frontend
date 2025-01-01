@@ -56,7 +56,7 @@
         <li>orderTable: orderStatus表示訂單付款狀態(未付款、已付款)，merchantTradeNo作為訂單編號</li>
         <li>order_details: 外鍵參考到productTable、orderTable，</li>
     </ul>
-    <img src="https://i.imgur.com/Q9d0C2n.png" alt="資料庫設計圖" style="max-width: 100%; height: auto;">
+    <img src="https://i.imgur.com/Id9vN3b.png" alt="資料庫設計圖" style="max-width: 100%; height: auto;">
     <h2 id="function-description">功能說明 :</h2>
     <ul>
         <li>線上支付功能：串接綠界金融 API，確保支付流程的安全性，提供使用者便捷且安全的交易體驗。</li>
