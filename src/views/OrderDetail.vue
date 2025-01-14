@@ -4,6 +4,8 @@
     import { useRoute } from 'vue-router';
     import LogoAndIcon from '../components/LogoAndIcon.vue'; 
     import { formatDate } from '@/global';
+    import GoBackBtn from '@/components/GoBackBtn.vue';
+    import GoTopBtn from '@/components/GoTopBtn.vue';
     const route = useRoute();
     const orderDetails = ref({});
     const apiUrl = 'https://localhost:7130';
@@ -35,6 +37,8 @@
 <template>
     <div class="container w-75">
         <LogoAndIcon></LogoAndIcon>
+        <GoBackBtn></GoBackBtn>
+        <GoTopBtn></GoTopBtn>
         <div class="order-info bg-light p-3 rounded shadow-sm mb-3 ">
             <h2 class="text-center">訂單資訊</h2>
             <div class="d-flex align-items-center justify-content-around">
@@ -55,10 +59,6 @@
             </div>   
             </div>
         </div>
-        <!-- 返回按鈕 -->
-        <RouterLink to="/OrderView" class="back-button">
-            <i class="bi bi-arrow-left"></i>
-        </RouterLink>
     </div>
 
 </template>
@@ -74,27 +74,5 @@
     p{font-size: 18px;}
     .product-text{font-size: 16px;}
 
-    .back-button {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: #007bff;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        font-size: 24px;
-        transition: background-color 0.3s, transform 0.3s;
-    }
-
-    .back-button:hover {
-        background-color: #0056b3;
-        transform: scale(1.1);
-    }
     
 </style>

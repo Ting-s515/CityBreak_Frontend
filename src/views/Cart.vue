@@ -6,6 +6,8 @@
     import { userName,userEmail,userID } from '@/global';
     import { useRouter } from 'vue-router';
     import axios, { Axios } from 'axios';
+    import GoBackBtn from '@/components/GoBackBtn.vue';
+    import GoTopBtn from '@/components/GoTopBtn.vue';
     const router=useRouter();
     const apiUrl='http://127.0.0.1:5100'
     const checkout=async function(){
@@ -66,38 +68,40 @@
     
 </script>
 <template>
-    <div class="container w-75">
-    <LogoAndIcon></LogoAndIcon>
-    <Nav></Nav>
-    <h1 class="text-center mt-3">購物車明細</h1>
-    <div v-if="cart.length === 0" class="text-center">
-        <h3>您的購物車是空的</h3>
-        <router-link to="/" class="btn btn-primary mt-3">返回首頁</router-link>
-    </div>
-    <div v-else class="container w-75">
-        <div v-for="item in cart" :key="item.productID" class="d-flex align-items-center cart-item mb-3 pb-3">
-        <img :src="item.img" alt="商品圖片" class="img-thumbnail" style="width: 100px; height: 100px;" />
-        <div class="item-details ms-3">
-            <h5>{{ item.name }}</h5>
-            <p>價格: NT$ {{ item.price }}</p>
-            <div class="d-flex align-items-center">
-            <button class="btn btn-secondary btn-sm" @click="decrease(item)">-</button>
-            <span class="mx-2">{{ item.quantity }}</span>
-            <button class="btn btn-secondary btn-sm" @click="increase(item)">+</button>
+    <div class="container"style="width: 900px;">
+        <GoBackBtn></GoBackBtn>
+        <GoTopBtn></GoTopBtn>
+        <LogoAndIcon></LogoAndIcon>
+        <Nav></Nav>
+        <h1 class="text-center mt-3">購物車明細</h1>
+        <div v-if="cart.length === 0" class="text-center">
+            <h3>您的購物車是空的</h3>
+            <router-link to="/" class="btn btn-primary mt-3">返回首頁</router-link>
+        </div>
+        <div v-else class="container w-75">
+            <div v-for="item in cart" :key="item.productID" class="d-flex align-items-center cart-item mb-3 pb-3">
+            <img :src="item.img" alt="商品圖片" class="img-thumbnail" style="width: 100px; height: 100px;" />
+            <div class="item-details ms-3">
+                <h5>{{ item.name }}</h5>
+                <p>價格: NT$ {{ item.price }}</p>
+                <div class="d-flex align-items-center">
+                <button class="btn btn-secondary btn-sm" @click="decrease(item)">-</button>
+                <span class="mx-2">{{ item.quantity }}</span>
+                <button class="btn btn-secondary btn-sm" @click="increase(item)">+</button>
+                </div>
+            </div>
+            <div class="item-actions d-flex align-items-center ms-auto">
+                <button class="btn btn-danger btn-md" @click="removeFromCart(item.productID)">
+                <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+            </div>
+            <h3 class="mt-3">總價: NT$ {{ totalPrice }}</h3>
+            <div class="d-flex align-items-center justify-content-center">
+                <button class="btn btn-primary mt-3 me-5 btnCss" @click="checkout">結帳</button>
+                <button class="btn btn-danger mt-3 btnCss" @click="clearCart">清空購物車</button>
             </div>
         </div>
-        <div class="item-actions d-flex align-items-center ms-auto">
-            <button class="btn btn-danger btn-md" @click="removeFromCart(item.productID)">
-            <i class="fas fa-trash-alt"></i>
-            </button>
-        </div>
-        </div>
-        <h3 class="mt-3">總價: NT$ {{ totalPrice }}</h3>
-        <div class="d-flex align-items-center justify-content-center">
-            <button class="btn btn-primary mt-3 me-5 btnCss" @click="checkout">結帳</button>
-            <button class="btn btn-danger mt-3 btnCss" @click="clearCart">清空購物車</button>
-        </div>
-    </div>
   </div>
         
 </template>

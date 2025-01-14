@@ -3,7 +3,8 @@
     import LogoAndIcon from '../components/LogoAndIcon.vue';
     import axios  from 'axios';
     import { ref,onMounted } from 'vue';
-    import { userName,userEmail,userID,createdDate } from '@/global';
+    import { userName,userEmail,userID,createdDate,apiUrl } from '@/global';
+    import GoBackBtn from '@/components/GoBackBtn.vue';
     const router=useRouter();
     const loginForm=ref({
         email:'',
@@ -15,11 +16,15 @@
         newPassword: '',
         confirmPassword: '',
     });
-   
-    // 定義 API
-    const apiUrl='https://localhost:7130';
+
+    //按下登入(禁用)
+    const loginText=ref('登入');
+    const isLoading=ref(false);
+    const loadingClass=ref(false);
+    
     const login=async()=>{
-        // console.log(loginForm.value.email, loginForm.value.password);
+        isLoading.value=true;
+        loginText.value="登入中，請稍後";
         try{
             const response =await axios.post(`${apiUrl}/login`,{
                 email:loginForm.value.email,
@@ -27,12 +32,12 @@
             });
             if(response.data.success){
                 let data=response.data;
-                console.log(data.name,data.email,data.id,data.createdDate);
+                console.log(data.name,data.email,data.userID,data.createdDate);
                 // console.log(typeof data.createdDate);
                 //全域共享
                 userName.value=data.name;
                 userEmail.value=data.email;
-                userID.value=data.id;
+                userID.value=data.userID;
                 createdDate.value=data.createdDate;
                 localStorage.setItem('userName', userName.value);
                 localStorage.setItem('userEmail',userEmail.value);
@@ -54,6 +59,10 @@
                 console.error('其他錯誤：', error.response);
                 alert("無法連接伺服器");
             }
+        }
+        finally{
+            isLoading.value=false;
+            loginText.value="登入";
         }
     }
 
@@ -135,10 +144,10 @@
     };
 </script>
 <template>
-    <div class="container w-75">
+    <div class="container"style="width: 900px;">
         <LogoAndIcon></LogoAndIcon>
     </div>
-    
+    <GoBackBtn></GoBackBtn>
   
  <div class="d-flex justify-content-center align-items-center mt-5">
         <div class="border" style="width: 500px; height: 450px; padding: 20px;">
@@ -155,7 +164,8 @@
                     <input type="password" class="form-control" id="password" name="password" placeholder="輸入您的密碼"
                      v-model="loginForm.password" required>
                 </div>
-                <button type="submit" class="btn btn-primary w-100" style="height: 40px;">登入</button>
+                <button type="submit" class="btn btn-primary w-100" :disabled="isLoading" 
+                    style="height: 40px;">{{ loginText }}</button>
             </form>
             <div class="mb-2 mt-3">
                 <button type="button" class="btn btn-outline-secondary d-flex align-items-center justify-content-center w-100"
@@ -249,4 +259,5 @@
 .bg-readonly {
     background-color: #e9ecef;
 }
+
 </style>

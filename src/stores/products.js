@@ -20,7 +20,7 @@ export const useProductClassification=defineStore('productClassification',{
     state:()=>({
         products:[],
         isLoading:true,
-        classification: 'clothes', // 預設分類
+        classification: 'clothes', // 預設分類參數
     }),
     actions:{
         async fetchProducts(classification = this.classification){
@@ -44,6 +44,7 @@ export const useProductClassification=defineStore('productClassification',{
                 this.isLoading=false; //加載完成
             }
         },
+        //Nav.vue
         setClassification(classification){
             this.classification=classification;
             this.fetchProducts(classification); // 重新加載產品

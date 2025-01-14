@@ -5,6 +5,8 @@
     import LogoAndIcon from '../components/LogoAndIcon.vue'; 
     import { useRouter } from 'vue-router';
     import { formatDate } from '@/global';
+    import GoBackBtn from '@/components/GoBackBtn.vue';
+    import GoTopBtn from '@/components/GoTopBtn.vue';
     const router=useRouter();
     const orders=ref([]);
     const apiUrl='https://localhost:7130';
@@ -63,6 +65,8 @@
 <template>
     <div class="container w-75">
         <LogoAndIcon></LogoAndIcon>
+        <GoBackBtn></GoBackBtn>
+        <GoTopBtn></GoTopBtn>
         <h1 class="text-center mt-3 mb-0">我的訂單</h1>
         <!-- 排序功能 -->
         <div class="d-flex justify-content-end align-items-center mb-2 mt-0">

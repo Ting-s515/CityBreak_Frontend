@@ -11,7 +11,8 @@
     import { useRouter } from 'vue-router';
     import { userEmail, userID, userName,apiUrl } from '@/global';
     import { useProductClassification} from '@/stores/products';
-    import qs from 'qs';
+    import GoTopBtn from '@/components/GoTopBtn.vue';
+    import GoBackBtn from '@/components/GoBackBtn.vue';
     import DropDown from '@/components/DropDown.vue';
     const router=useRouter();
 
@@ -45,25 +46,19 @@
             }           
         }
     });
+    
     //處理google登入
     const parseTokenFromUrl=async()=>{
         const urlParams=new URLSearchParams(window.location.search);
         const token =urlParams.get("token");
         const status=urlParams.get('status');
+        // console.log(`token: ${token}`);
         if(token){
             if(status==='success'){
-                //解碼JWT
-                const decodeToken=jwtDecode(token); 
-                console.log(`userID: ${decodeToken.userID}`);
                 try{
                     const response=await axios.post(`${apiUrl}/getGoogleUserInfo`,
-                    qs.stringify({userID: decodeToken.userID}), // 將資料轉換為 URL 編碼表單格式
-                    {
-                        headers:{
-                            'Content-Type': 'application/x-www-form-urlencoded', 
-                        },    
+                       JSON.stringify(token),{headers:{'Content-Type':'application/json'}
                     });
-                    // console.log("執行qs轉換");
                     if(response.data.success){
                         console.log(`${response.data.email} ${response.data.name}`);
                         localStorage.setItem('userName', response.data.name);
@@ -75,7 +70,7 @@
                         alert("登入成功!!");
                     }
                     else{
-                        console.error(response.data.message);
+                        console.error(response.data);
                     }
                 }
                 catch(error){
@@ -109,7 +104,7 @@
             window.history.replaceState({}, document.title, "/");
         }
     };
-    //檢查是否執行
+    //檢查是否執行(處理google登入)
     onMounted(()=>{
         const isGoogleLogin=localStorage.getItem('isGoogleLogin') || 'no data';
         if(isGoogleLogin === 'true'){
@@ -123,6 +118,7 @@
     onMounted(() => {
         productClassification.fetchProducts(); 
     });
+
     //使用vue computed達成響應式效果
     const products=computed(()=>productClassification.products);
     const isLoading = computed(() => productClassification.isLoading);
@@ -136,7 +132,7 @@
     
 </script>
 <template>
-    <div class="container w-75">
+    <div class="container"style="width: 900px;">
         <LogoAndIcon></LogoAndIcon>
         <Nav></Nav>
         <Carousel></Carousel>
@@ -144,8 +140,10 @@
         <ProductTip hr="最新商品"></ProductTip>
         <CardProduct :products="products" :isLoading="isLoading" @addToCart="addToCart"></CardProduct>
         <!-- 傳給cartStore.js -->
+        <GoTopBtn></GoTopBtn>
+        <GoBackBtn></GoBackBtn>
     </div>
 </template>
 <style scoped>
-
+  
 </style>

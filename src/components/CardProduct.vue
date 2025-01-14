@@ -1,6 +1,7 @@
 <script setup>
     import{ref,onMounted,defineProps,onUnmounted}from 'vue';
     import axios from 'axios';
+    //SearchProduct、Home
     defineProps({
         products:{
             type:Array,
@@ -17,13 +18,13 @@
         <!-- Skeleton Screen -->
         <template v-if="isLoading">
             <div class="col-6 col-lg-3 d-flex justify-content-center"v-for="n in 4" :key="n">
-                <div class="card mb-3" style="">
+                <div class="card mb-3" style="width: 250px;">
                     <div class="skeleton" style="height: 200px; width: 100%;"></div>
                     <div class="card-body">
-                        <h5 class="skeleton" style="height: 20px; width: 60%;"></h5>
-                        <p class="skeleton" style="height: 60px; width: 100%;"></p>
-                        <p class="skeleton" style="height: 20px; width: 40%;"></p>
-                        <div class="skeleton" style="height: 30px; width: 80%;"></div>
+                        <h5 class="skeleton" style="height: 50px; width: 100%;"></h5>
+                        <p class="skeleton" style="height: 90px; width: 100%;"></p>
+                        <p class="skeleton" style="height: 20px; width: 50%;"></p>
+                        <div class="skeleton" style="height: 30px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -31,8 +32,8 @@
         <template v-else>
             <template v-if="products.length >0">
                 <div class="col-6 col-lg-3 d-flex justify-content-center" v-for="product in products" :key="product.productID">
-                    <div class="card mb-3" style="">
-                        <img :src="product.imagePath" class="card-img-top" :alt="product.productName">
+                    <div class="card mb-3" style="width: 250px;">
+                        <img :src="product.imagePath" class="card-img-top" :alt="product.productName" style="">
                         <div class="card-body">
                             <h5 class="card-title m-0 p-0" style="height: 50px;">{{ product.productName }}</h5>
                             <p class="card-text m-0 p-0" style="height: 90px;">{{ product.prodictIntroduce }}</p>

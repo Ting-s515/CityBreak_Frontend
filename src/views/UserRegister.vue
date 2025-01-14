@@ -57,6 +57,7 @@
                 // 隱藏密碼欄位
                 hidePwdInput.value=true;
                 readonlyInput.value=true;
+                //用完移除
                 localStorage.removeItem("googleName");
                 localStorage.removeItem("googleEmail");
             }
@@ -88,7 +89,7 @@
                 <div class="mb-4" v-if="!hidePwdInput">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required
-                      v-model="registerForm.password"  style="height: 40px;" placeholder="至少8碼，且包含一个大寫字母">
+                      v-model="registerForm.password"  style="height: 40px;" placeholder="至少8碼，且包含一個大寫字母">
                 </div>
                 <div class="mb-4">
                     <label for="phone" class="form-label">手機號碼</label>
