@@ -27,11 +27,9 @@
         }
         catch (error) {
             if (error.response) {
-                console.error('後端錯誤：', error.response.data); 
-                alert(`後端錯誤：${error.response.data.message || "未知錯誤"}`);
+                console.error('後端狀態：', error.response.data); 
             } else {
                 console.error('請求失敗：', error.message);
-                alert(`請求失敗：${error.message}`);
             }
         };
     }
@@ -76,27 +74,35 @@
                 <option value="asc">從舊到新</option>
             </select>
         </div>
-        <div class="row d-flex order-list mb-3 g-0" v-for="order in sortOrders" :key="order.orderID">
-            <div class="col-9">
-                <div class="row row-cols-2 ms-2">
-                    <div class="col-md-6 d-flex align-items-center">
-                        <p class="m-0">訂單編號: {{ order.merchantTradeNo }}</p>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <p class="m-0">訂單時間: {{ formatDate(order.orderTime) }}</p>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <p class="m-0">總價: {{ order.totalPrice }}</p>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <p class="m-0">付款狀態: {{ order.orderStatus }}</p>
+        <template v-if="orders.length >0">
+            <div class="row d-flex order-list mb-3 g-0" v-for="order in sortOrders" :key="order.orderID">
+                <div class="col-9">
+                    <div class="row row-cols-2 ms-2">
+                        <div class="col-md-6 d-flex align-items-center">
+                            <p class="m-0">訂單編號: {{ order.merchantTradeNo }}</p>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <p class="m-0">訂單時間: {{ formatDate(order.orderTime) }}</p>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <p class="m-0">總價: {{ order.totalPrice }}</p>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <p class="m-0">付款狀態: {{ order.orderStatus }}</p>
+                        </div>
                     </div>
                 </div>
+                <div class="col-3 d-flex align-items-center justify-content-end">
+                    <button class="me-3" @click="orderDetail(order.merchantTradeNo)">查看訂單詳情</button>
+                </div>
             </div>
-            <div class="col-3 d-flex align-items-center justify-content-end">
-                <button class="me-3" @click="orderDetail(order.merchantTradeNo)">查看訂單詳情</button>
+        </template>
+        <template v-else>
+            <div class="col-12 text-center py-5">
+                    <h1 class="text-muted">您還沒有任何訂單</h1>
             </div>
-        </div>
+        </template>
+        
     </div>
 </template>
 <style scoped>

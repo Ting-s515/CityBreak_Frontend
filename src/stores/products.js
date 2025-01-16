@@ -16,24 +16,25 @@ export const useSearchProducts=defineStore('products',{
 });
 
 //載入商品分類
-export const useProductClassification=defineStore('productClassification',{
+export const useProductCategories=defineStore('productCategories',{
     state:()=>({
         products:[],
         isLoading:true,
-        classification: 'clothes', // 預設分類參數
+        categories: 'clothes', // 預設分類參數
     }),
     actions:{
-        async fetchProducts(classification = this.classification){
+        async fetchProducts(categories = this.categories){
             try {
-                // console.log("classification參數=",classification);
+                console.log("categories參數=",categories);
                 const response = await axios.post(`${apiUrl}/getProducts`,{
-                    classification }); 
+                    categories }); 
                 if(response.data.success){
                     this.products = response.data.data; 
+                    console.log(`檢查商品陣列${this.products}`);
                     this.products.forEach(product=>{
                         product.imagePath=`${product.imagePath}`;
                     });
-                    // console.log("From products.js",this.products);
+                    console.log("From products.js",this.products);
                 }
                 else{
                     console.error('商品加載失敗：', response.data.message);
@@ -45,9 +46,9 @@ export const useProductClassification=defineStore('productClassification',{
             }
         },
         //Nav.vue
-        setClassification(classification){
-            this.classification=classification;
-            this.fetchProducts(classification); // 重新加載產品
+        setCategories(categories){
+            this.categories=categories;
+            this.fetchProducts(categories); // 重新加載產品
         },
     },
 });

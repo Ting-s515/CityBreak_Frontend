@@ -10,7 +10,7 @@
     import { jwtDecode } from 'jwt-decode';
     import { useRouter } from 'vue-router';
     import { userEmail, userID, userName,apiUrl } from '@/global';
-    import { useProductClassification} from '@/stores/products';
+    import { useProductCategories} from '@/stores/products';
     import GoTopBtn from '@/components/GoTopBtn.vue';
     import GoBackBtn from '@/components/GoBackBtn.vue';
     const router=useRouter();
@@ -113,19 +113,20 @@
     });
 
     //加載商品數據
-    const productClassification=useProductClassification();
+    //在 Vue組件的 setup 階段執行
+    const productCategories=useProductCategories();
     onMounted(() => {
-        productClassification.fetchProducts(); 
+        productCategories.fetchProducts(); 
     });
 
     //使用vue computed達成響應式效果
-    const products=computed(()=>productClassification.products);
-    const isLoading = computed(() => productClassification.isLoading);
+    const products=computed(()=>productCategories.products);
+    const isLoading = computed(() => productCategories.isLoading);
 
     // 使用 watchEffect 簡化監控
     // watchEffect(() => {
-    //     console.log("productClassification in watchEffect:", productClassification.products);
-    //     console.log("productClassification in watchEffect:", productClassification.isLoading);
+    //     console.log("productCategories in watchEffect:", productCategories.products);
+    //     console.log("productCategories in watchEffect:", productCategories.isLoading);
     // });
    
     
