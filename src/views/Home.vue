@@ -13,7 +13,6 @@
     import { useProductClassification} from '@/stores/products';
     import GoTopBtn from '@/components/GoTopBtn.vue';
     import GoBackBtn from '@/components/GoBackBtn.vue';
-    import DropDown from '@/components/DropDown.vue';
     const router=useRouter();
 
     //檢查綠界付款
@@ -136,8 +135,7 @@
         <LogoAndIcon></LogoAndIcon>
         <Nav></Nav>
         <Carousel></Carousel>
-        <!-- <DropDown class="mt-3"/> -->
-        <ProductTip hr="最新商品"></ProductTip>
+        <ProductTip></ProductTip>
         <CardProduct :products="products" :isLoading="isLoading" @addToCart="addToCart"></CardProduct>
         <!-- 傳給cartStore.js -->
         <GoTopBtn></GoTopBtn>

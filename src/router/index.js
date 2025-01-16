@@ -1,6 +1,5 @@
 
 import {createRouter,createWebHistory} from 'vue-router';
-// 引入自定義元件
 import Home from '../views/Home.vue'
 
 // 啟用 VueRouter 元件

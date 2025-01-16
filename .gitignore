@@ -64,3 +64,4 @@ public/
 *.png
 *.jpg
 .gitattributes
+.env

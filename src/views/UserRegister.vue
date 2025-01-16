@@ -89,7 +89,7 @@
                 <div class="mb-4" v-if="!hidePwdInput">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required
-                      v-model="registerForm.password"  style="height: 40px;" placeholder="至少8碼，且包含一個大寫字母">
+                      v-model="registerForm.password"  style="height: 40px;" placeholder="至少8碼">
                 </div>
                 <div class="mb-4">
                     <label for="phone" class="form-label">手機號碼</label>
